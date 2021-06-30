@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from "axios";
 import Movie from './Movie';
+import KaKao from './KaKaoSign';
 import "./App.css";
+
 
 class App extends React.Component {
   state = {
-    isLoading: true
+    isLoading: true,
+    isLogin: false
   };
   getMoviews = async () => {
     const { data: { data: { movies } } } = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating");
@@ -22,7 +25,11 @@ class App extends React.Component {
           ? (<div className="loader">
             <span className="loader_text">Loading...</span>
           </div>
-          ) : (<div className="movies">
+          ) : (
+          <div className="movies">
+            <div className="kakao">
+            <KaKao/>
+          </div>
             {movies.map(movie => (
               <Movie
                 key={movie.id}
